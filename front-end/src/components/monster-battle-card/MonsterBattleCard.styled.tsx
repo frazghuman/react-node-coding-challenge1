@@ -26,6 +26,7 @@ export const BattleMonsterTitle = styled(Typography)(() => ({
 export const ProgressBar = styled(LinearProgress)(() => ({
     height: 8,
     borderRadius: 15,
+    marginBottom: '10px',
     [`&.${linearProgressClasses.colorPrimary}`]: {
         backgroundColor: colors.progressBarBackground,
     },

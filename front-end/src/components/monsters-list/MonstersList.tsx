@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useAppDispatch } from "../../app/hooks"
 import { Monster } from "../../models/interfaces/monster.interface"
-import { setSelectedMonster } from "../../reducers/monsters/monsters.actions"
+import { setSelectedMonster, setSelectedComputerMonster } from "../../reducers/monsters/monsters.actions"
 import { Image, ListTitle, MonsterCard, MonsterName, MonstersSection } from "./MonstersList.styled"
 
 type MonstersListProps = {
@@ -17,7 +17,17 @@ const MonstersList: React.FC<MonstersListProps> = ({ monsters }) => {
         const value = selectedMonsterId === monster.id ? null : monster.id
         setSelectedMonsterId(value)
         dispatch(setSelectedMonster(!value ? null : monster));
+
+        if(value) {
+            const availableMonsters = monsters.filter((monster: Monster) => monster.id !== value);
+            const randomIndex = Math.floor(Math.random() * availableMonsters.length);
+            const randomComputerMonster = availableMonsters[randomIndex];
+            dispatch(setSelectedComputerMonster(randomComputerMonster));
+        } else {
+            dispatch(setSelectedComputerMonster(null));
+        }
     }
+
 
     return (
         <div>
